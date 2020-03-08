@@ -21,5 +21,8 @@ async def on_message(message):
 
     if message.content == "-flipcoin".lower():
         await coinsAndDice.coinflip(message)
+        
+    elif message.content.startswith("-roll".lower()):
+        await coinsAndDice.rollDice(message)
 
 client.run(TOKEN)
