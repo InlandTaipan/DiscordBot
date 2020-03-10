@@ -1,28 +1,40 @@
 #!/usr/local/bin/python3
 
+#Loading bot token (its a secret, shhhh!)
 from dotenv import load_dotenv
 load_dotenv()
+TOKEN = os.getenv("TOKEN")
 
 import os
 import discord
-import coinsAndDice
 
+#My modules
+import coinsAndDice #Functions for flipping a coin and rolling dice
+import help #Display help message
+
+#Setting up client
 client = discord.Client()
-TOKEN = os.getenv("TOKEN")
 
+#Message when bot is ready for commands
 @client.event
 async def on_ready():
     print("Ready for action!")
 
+#Bot command list
 @client.event
 async def on_message(message):
+    #Prevent bot from responding to its own messages
     if message.author == client.user:
         return
 
-    if message.content == "-flipcoin".lower():
+    #flipcoin command
+    if message.content.lower() == "-flipcoin":
         await coinsAndDice.coinflip(message)
-        
-    elif message.content.startswith("-roll".lower()):
+    #dice roll command
+    elif message.content.lower().startswith("-roll"):
         await coinsAndDice.rollDice(message)
+    #help command
+    if message.content.lower() == "-help":
+        await help.sendHelp(message)
 
 client.run(TOKEN)
