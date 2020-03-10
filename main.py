@@ -3,7 +3,6 @@
 #Loading bot token (its a secret, shhhh!)
 from dotenv import load_dotenv
 load_dotenv()
-TOKEN = os.getenv("TOKEN")
 
 import os
 import discord
@@ -14,11 +13,16 @@ import help #Display help message
 
 #Setting up client
 client = discord.Client()
+TOKEN = os.getenv("TOKEN")
 
 #Message when bot is ready for commands
 @client.event
 async def on_ready():
     print("Ready for action!")
+    await client.change_presence(activity = discord.Activity(
+        name = "fruit expire",
+        type = discord.ActivityType.watching)
+    )
 
 #Bot command list
 @client.event
