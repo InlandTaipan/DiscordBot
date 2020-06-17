@@ -6,6 +6,7 @@ load_dotenv()
 
 import os
 import discord
+import asyncio
 
 #My modules
 import coinsAndDice #Functions for flipping a coin and rolling dice
